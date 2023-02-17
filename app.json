@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "autoskola_test",
-    "slug": "autoskola_test",
+    "name": "autoskola_mobil",
+    "slug": "autoskola_mobil",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -1,16 +1,14 @@
 import {Box, Button, ScrollView, Text} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import Test from "./Test";
-import {Platform} from "react-native";
 
 
 export default function Home(props) {
     const settings = props.settings;
     const navigation = useNavigation();
-    console.log(Platform);
 
     return (
-        <Box alignItems="center" flex="1" bg={settings.bg}>
+        <Box alignItems="center" flex="1" bg={settings.bg} pt="10%">
             <ScrollView>
                 <Box alignItems="center">
                     <Text fontSize="5xl" bold>HOME</Text>
@@ -82,6 +80,5 @@ export default function Home(props) {
                 </Box>
             </ScrollView>
         </Box>
-
     )
 }
