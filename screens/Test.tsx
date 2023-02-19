@@ -1,6 +1,8 @@
 import {Box, Button, Container, Pressable, ScrollView, Stack, Text} from "native-base";
+import * as React from "react";
 import {useEffect, useState} from "react";
 import {Dimensions} from "react-native";
+import {StackActions, useNavigation} from "@react-navigation/native";
 
 export default function Test(props): any {
     const settings = props.settings;
@@ -22,11 +24,11 @@ export default function Test(props): any {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionBox, setQuestionBox] = useState(null);
     const screenH = Dimensions.get("screen").height;
-    let answers = [];
+    const navigation = useNavigation();
 
     useEffect(() => {
         if (!allSelectedAnswers) {
-            answers = [];
+            let answers = [];
             data.map((item) => {
                 answers = answers.concat({
                     'FK_otazka': item.id,
@@ -70,20 +72,11 @@ export default function Test(props): any {
 
     const markSelectedAnswer = (question_index) => {
         setSelectedListIndex(0);
-        if (allSelectedAnswers) {
-            allSelectedAnswers.map((item, index) => {
-                if (index === question_index) {
-                    setSelectedListIndex(item.odpoved);
-                }
-            })
-        } else {
-            const storedAnswers = JSON.parse(localStorage.getItem("allSelectedAnswers"));
-            storedAnswers.map((item, index) => {
-                if (index === question_index) {
-                    setSelectedListIndex(item.odpoved);
-                }
-            })
-        }
+        allSelectedAnswers.map((item, index) => {
+            if (index === question_index) {
+                setSelectedListIndex(item.odpoved);
+            }
+        })
     }
 
     const handleQuestionChange = (type, value, index) => {
@@ -107,7 +100,7 @@ export default function Test(props): any {
 
     const handleSendForm = () => {
         console.log(allSelectedAnswers);
-        answers = [];
+        let answers = [];
         data.map((item) => {
             answers = answers.concat({
                 'FK_otazka': item.id,
@@ -117,6 +110,8 @@ export default function Test(props): any {
         })
         setAllSelectedAnswers(answers);
         setSelectedListIndex(0);
+        props.setAnswers(allSelectedAnswers);
+        navigation.navigate("Výsledek" as never);
     }
 
     return data.map((item, index) => {
