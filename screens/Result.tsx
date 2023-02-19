@@ -11,7 +11,7 @@ export default function Result(props) {
                 {answers && answers.map((item, index) => {
                     return (
                         <>
-                            <Pressable borderWidth={1} w="45%" p={1} m={1}>
+                            <Pressable borderWidth={1} w="45%" p={1} m={1} key={index}>
                                 <Text fontSize="lg" textAlign="center">Otázka {index + 1}</Text>
                             </Pressable>
                         </>

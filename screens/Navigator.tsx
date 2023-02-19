@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -10,13 +11,17 @@ import Settings from './Settings';
 import History from "./History";
 import Stats from "./Stats";
 import {useColorMode, useColorModeValue} from "native-base";
-import {useState} from "react";
 
 
 export default function MainContainer() {
     const Tab = createBottomTabNavigator();
     const {toggleColorMode} = useColorMode();
-    const settings = {bg: useColorModeValue("white", "muted.800")};
+    const [light, setLight] = useState("white");
+    const [dark, setDark] = useState("muted.800");
+    const settings = {
+        bg: useColorModeValue(light, dark),
+        mode: useColorModeValue("light", "dark"),
+    };
     const [answers, setAnswers] = useState(null);
 
     return (
@@ -59,7 +64,8 @@ export default function MainContainer() {
                 <Tab.Screen name="Historie" children={() => <History settings={settings}/>}/>
                 <Tab.Screen name="Statistiky" children={() => <Stats settings={settings}/>}/>
                 <Tab.Screen name="Nastavení"
-                            children={() => <Settings darkMode={toggleColorMode} settings={settings}/>}/>
+                            children={() => <Settings darkMode={toggleColorMode} settings={settings} setLight={setLight}
+                                                      setDark={setDark}/>}/>
             </Tab.Navigator>
         </NavigationContainer>
     );

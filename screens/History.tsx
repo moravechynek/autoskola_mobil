@@ -5,7 +5,7 @@ export default function History(props) {
 
     return (
         <Box pt="10%" alignItems="center" flex="1" bg={settings.bg}>
-            <Text>Historie</Text>
+            <Text fontSize="3xl">Historie</Text>
         </Box>
     )
 }

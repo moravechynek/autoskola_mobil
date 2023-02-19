@@ -5,7 +5,7 @@ export default function Stats(props) {
 
     return (
         <Box pt="10%" alignItems="center" flex="1" bg={settings.bg}>
-            <Text>Statistiky</Text>
+            <Text fontSize="3xl">Statistiky</Text>
         </Box>
     )
 }

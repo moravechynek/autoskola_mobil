@@ -48,6 +48,7 @@ export default function Training(props): any {
                 })
             }
         })
+        setCurrentQuestion(0);
     }
 
     const getTime = () => {
@@ -165,7 +166,7 @@ export default function Training(props): any {
                                  maxH="40%"
                                  nativeID="sranda"
                                  onLayout={(event) => {
-                                     setQuestionBox(event.nativeEvent.layout)
+                                     setQuestionBox(event.nativeEvent.layout);
                                  }}
                             >
                                 <ScrollView>
