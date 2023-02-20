@@ -2,7 +2,7 @@ import {Box, Button, Container, Pressable, ScrollView, Stack, Text} from "native
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {Dimensions} from "react-native";
-import {StackActions, useNavigation} from "@react-navigation/native";
+import Result from "./Result";
 
 export default function Test(props): any {
     const settings = props.settings;
@@ -18,13 +18,31 @@ export default function Test(props): any {
         'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
         'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
         'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
+    }, {
+        'id': '3',
+        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
+        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
+        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
+        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
+    }, {
+        'id': '4',
+        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
+        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
+        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
+        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
+    }, {
+        'id': '5',
+        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
+        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
+        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
+        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
     }];
     const [allSelectedAnswers, setAllSelectedAnswers] = useState(null);
     const [selectedListIndex, setSelectedListIndex] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionBox, setQuestionBox] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     const screenH = Dimensions.get("screen").height;
-    const navigation = useNavigation();
 
     useEffect(() => {
         if (!allSelectedAnswers) {
@@ -100,6 +118,10 @@ export default function Test(props): any {
 
     const handleSendForm = () => {
         console.log(allSelectedAnswers);
+        setShowResult(true);
+    }
+
+    const newTest = () => {
         let answers = [];
         data.map((item) => {
             answers = answers.concat({
@@ -109,9 +131,13 @@ export default function Test(props): any {
             });
         })
         setAllSelectedAnswers(answers);
+        setCurrentQuestion(0);
         setSelectedListIndex(0);
-        props.setAnswers(allSelectedAnswers);
-        navigation.navigate("Výsledek" as never);
+        setShowResult(false);
+    }
+
+    if (showResult) {
+        return <Result settings={settings} answers={allSelectedAnswers} newTest={newTest}/>
     }
 
     return data.map((item, index) => {

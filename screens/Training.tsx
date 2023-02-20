@@ -83,7 +83,7 @@ export default function Training(props): any {
             if (index === currentQuestion) {
                 spravnaOdpoved = item.spravna_odpoved;
                 if (item.spravna_odpoved === answer) {
-                    pickedColor = "green.400";
+                    pickedColor = "green.600";
                 }
             }
         })
@@ -92,7 +92,7 @@ export default function Training(props): any {
                 if (item.odpoved === 'none') {
                     pickedColor = settings.bg;
                 } else if (item.odpoved === answer && answer !== spravnaOdpoved) {
-                    pickedColor = "red.500";
+                    pickedColor = "red.600";
                 }
             }
         })

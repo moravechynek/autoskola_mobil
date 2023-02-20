@@ -5,7 +5,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './Home';
 import Test from './Test';
-import Result from "./Result";
 import Training from './Training';
 import Settings from './Settings';
 import History from "./History";
@@ -22,7 +21,6 @@ export default function MainContainer() {
         bg: useColorModeValue(light, dark),
         mode: useColorModeValue("light", "dark"),
     };
-    const [answers, setAnswers] = useState(null);
 
     return (
         <NavigationContainer>
@@ -57,9 +55,7 @@ export default function MainContainer() {
                 }}
             >
                 <Tab.Screen name="Home" children={() => <Home settings={settings}/>}/>
-                <Tab.Screen name="Test" children={() => <Test settings={settings} setAnswers={setAnswers}/>}/>
-                <Tab.Screen name="Výsledek" children={() => <Result settings={settings} answers={answers}/>}
-                            options={{headerShown: false} as object}/>
+                <Tab.Screen name="Test" children={() => <Test settings={settings}/>}/>
                 <Tab.Screen name="Trénink" children={() => <Training settings={settings}/>}/>
                 <Tab.Screen name="Historie" children={() => <History settings={settings}/>}/>
                 <Tab.Screen name="Statistiky" children={() => <Stats settings={settings}/>}/>
