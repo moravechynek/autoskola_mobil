@@ -7,37 +7,7 @@ export default function Question(props) {
     const settings = props.settings;
     const rightAnswers = props.data;
     const answers = props.answers;
-    const data = [{
-        'id': '1',
-        'otazka': 'Zjistíme-li závady na brzdovém systému, které zjevně znemožňují účinně zastavit vozidlo a tím ohrožují bezpečnost provozu na pozemních komunikacích:',
-        'odpoved_a': 'Za škodu vyvolanou zvláštní povahou provozu motorového vozidla.',
-        'odpoved_b': 'Pouze za škodu, která byla vyvolána porušením jeho právních povinností.',
-        'odpoved_c': 'Pouze za škodu, která byla vyvolána porušením povinností řidiče tohoto vozidla.',
-    }, {
-        'id': '2',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }, {
-        'id': '3',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }, {
-        'id': '4',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }, {
-        'id': '5',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }];
+    const data = props.data;
     const screenH = Dimensions.get("screen").height;
     const [currentQuestion, setCurrentQuestion] = useState(props.index);
     const [questionBox, setQuestionBox] = useState(null);
@@ -78,7 +48,7 @@ export default function Question(props) {
                 if (index === currentQuestion) {
                     return (
                         <Box pt="10%" px={3} alignItems="center" flex="1" bg={settings.bg} key={item.id}>
-                            <Stack direction="row" space={1} p={2}>
+                            <Stack direction="row" p={2} flexWrap="wrap" justifyContent="center">
                                 {data.map((item, index) => {
                                     if (index === currentQuestion) {
                                         return (
@@ -86,6 +56,7 @@ export default function Question(props) {
                                                     key={index}
                                                     size="8"
                                                     bg="cyan.500"
+                                                    m={0.5}
                                             >
                                                 <Text>{index + 1}</Text>
                                             </Button>
@@ -95,6 +66,7 @@ export default function Question(props) {
                                             <Button onPress={() => handleQuestionChange('btn', index)}
                                                     key={index}
                                                     size="8"
+                                                    m={0.5}
                                             >
                                                 <Text>{index + 1}</Text>
                                             </Button>

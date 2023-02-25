@@ -3,40 +3,11 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {Dimensions} from "react-native";
 import Result from "./Result";
+import questions from './../data/questions.json';
 
 export default function Test(props): any {
     const settings = props.settings;
-    const data = [{
-        'id': '1',
-        'otazka': 'Zjistíme-li závady na brzdovém systému, které zjevně znemožňují účinně zastavit vozidlo a tím ohrožují bezpečnost provozu na pozemních komunikacích:',
-        'odpoved_a': 'Za škodu vyvolanou zvláštní povahou provozu motorového vozidla.',
-        'odpoved_b': 'Pouze za škodu, která byla vyvolána porušením jeho právních povinností.',
-        'odpoved_c': 'Pouze za škodu, která byla vyvolána porušením povinností řidiče tohoto vozidla.',
-    }, {
-        'id': '2',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }, {
-        'id': '3',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }, {
-        'id': '4',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }, {
-        'id': '5',
-        'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-        'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-        'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-        'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-    }];
+    const [data, setData] = useState([...questions].sort(() => 0.5 - Math.random()).slice(0, 25))
     const [allSelectedAnswers, setAllSelectedAnswers] = useState(null);
     const [selectedListIndex, setSelectedListIndex] = useState(null);
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -122,14 +93,16 @@ export default function Test(props): any {
     }
 
     const newTest = () => {
+        const newData = [...questions].sort(() => 0.5 - Math.random()).slice(0, 25);
         let answers = [];
-        data.map((item) => {
+        newData.map((item) => {
             answers = answers.concat({
                 'FK_otazka': item.id,
                 'odpoved': 'none',
                 'timestamp': getTime()
             });
         })
+        setData(newData);
         setAllSelectedAnswers(answers);
         setCurrentQuestion(0);
         setSelectedListIndex(0);
@@ -137,14 +110,14 @@ export default function Test(props): any {
     }
 
     if (showResult) {
-        return <Result settings={settings} answers={allSelectedAnswers} newTest={newTest}/>
+        return <Result settings={settings} answers={allSelectedAnswers} data={data} newTest={newTest}/>
     }
 
     return data.map((item, index) => {
         if (index === currentQuestion) {
             return (
                 <Box pt="10%" px={3} alignItems="center" flex="1" bg={settings.bg} key={item.id}>
-                    <Stack direction="row" space={1} p={2}>
+                    <Stack direction="row" p={2} flexWrap="wrap" justifyContent="center">
                         {data.map((item, index) => {
                             if (index === currentQuestion) {
                                 return (
@@ -152,6 +125,7 @@ export default function Test(props): any {
                                             key={index}
                                             size="8"
                                             bg="cyan.500"
+                                            m={0.5}
                                     >
                                         <Text>{index + 1}</Text>
                                     </Button>
@@ -161,6 +135,7 @@ export default function Test(props): any {
                                     <Button onPress={() => handleQuestionChange('btn', index, null)}
                                             key={index}
                                             size="8"
+                                            m={0.5}
                                     >
                                         <Text>{index + 1}</Text>
                                     </Button>

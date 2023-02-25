@@ -5,7 +5,7 @@ import Question from "./Question";
 export default function Result(props) {
     const settings = props.settings;
     const answers = props.answers;
-    const data = [{"spravna_odpoved": "a"}, {"spravna_odpoved": "b"}, {"spravna_odpoved": "c"}, {"spravna_odpoved": "a"}, {"spravna_odpoved": "a"}]
+    const data = props.data;
     const [showQuestion, setShowQuestion] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
 

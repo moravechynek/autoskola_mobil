@@ -2,18 +2,11 @@ import {Box, Button, Container, Pressable, ScrollView, Stack, Text} from "native
 import {useEffect, useState} from "react";
 import {Dimensions} from "react-native";
 import {useIsFocused} from "@react-navigation/native";
+import questions from './../data/questions.json';
 
 export default function Training(props): any {
     const settings = props.settings;
-    const initialData = [{
-        'id': '1',
-        'otazka': 'Zjistíme-li závady na brzdovém systému, které zjevně znemožňují účinně zastavit vozidlo a tím ohrožují bezpečnost provozu na pozemních komunikacích:',
-        'odpoved_a': 'Za škodu vyvolanou zvláštní povahou provozu motorového vozidla.',
-        'odpoved_b': 'Pouze za škodu, která byla vyvolána porušením jeho právních povinností.',
-        'odpoved_c': 'Pouze za škodu, která byla vyvolána porušením povinností řidiče tohoto vozidla.',
-        'spravna_odpoved': 'a',
-    }];
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState([questions[Math.floor(Math.random() * questions.length + 1)]]);
     const [allSelectedAnswers, setAllSelectedAnswers] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -34,19 +27,16 @@ export default function Training(props): any {
     })
 
     const reset = () => {
-        setData(initialData);
-        initialData.map((item, index) => {
-            if (index === 0) {
-                setAllSelectedAnswers([{
-                    'FK_otazka': item.id,
-                    'odpoved': 'none',
-                    'timestamp': getTime()
-                }])
-                setSelectedAnswer({
-                    "FK_otazka": item.id,
-                    "odpoved": "none"
-                })
-            }
+        const i = Math.floor(Math.random() * questions.length + 1);
+        setData([questions[i]]);
+        setAllSelectedAnswers([{
+            'FK_otazka': questions[i].id,
+            'odpoved': 'none',
+            'timestamp': getTime()
+        }])
+        setSelectedAnswer({
+            "FK_otazka": questions[i].id,
+            "odpoved": "none"
         })
         setCurrentQuestion(0);
     }
@@ -124,27 +114,16 @@ export default function Training(props): any {
     }
 
     const loadNextQuestion = () => {
-        const nextData = [{
-            'id': (currentQuestion * 3).toString(),
-            'otazka': 'Které z následujících motorových vozidel smíte řídit na základě řidičského oprávnění skupiny D:',
-            'odpoved_a': 'Motorové vozidlo určené pro přepravu osob, s deseti místy k sezení, jehož maximální přípustná hmotnost je 3.350 kg.',
-            'odpoved_b': 'Motorové vozidlo určené pro přepravu nákladu, se dvěma místy k sezení, jehož maximální přípustná hmotnost je 3.700 kg.',
-            'odpoved_c': 'Motocykl o objemu válců nepřesahujícím 125 cm3 a o výkonu nejvýše 11 kW.',
-            'spravna_odpoved': 'a',
-        }]
-        setData(data.concat(nextData))
-        nextData.map((item, index) => {
-            if (index === 0) {
-                setAllSelectedAnswers(allSelectedAnswers.concat({
-                    'FK_otazka': item.id,
-                    'odpoved': 'none',
-                    'timestamp': getTime()
-                }))
-                setSelectedAnswer({
-                    "FK_otazka": item.id,
-                    "odpoved": "none"
-                })
-            }
+        const i = Math.floor(Math.random() * questions.length + 1);
+        setData(data.concat(questions[i]))
+        setAllSelectedAnswers(allSelectedAnswers.concat({
+            'FK_otazka': questions[i].id,
+            'odpoved': 'none',
+            'timestamp': getTime()
+        }))
+        setSelectedAnswer({
+            "FK_otazka": questions[i].id,
+            "odpoved": "none"
         })
     }
 
